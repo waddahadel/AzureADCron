@@ -1,6 +1,7 @@
 <?php
 
 require_once "Customizing/global/plugins/Services/Authentication/AuthenticationHook/AzureAD/classes/class.ilAzureADCron.php";
+require_once "Customizing/global/plugins/Services/Authentication/AuthenticationHook/AzureAD/classes/class.ilAzureADCronSyncUserData.php";
 /**
  * Class ilAzureADCronPlugin
  *
@@ -58,6 +59,8 @@ class ilAzureADCronPlugin extends ilCronHookPlugin
         switch ($a_job_id) {
             case ilAzureADCron::CRON_JOB_ID:
                 return new ilAzureADCron();
+            case ilAzureADCronSyncUserData::CRON_JOB_ID:
+                return new ilAzureADCronSyncUserData();
 
             default:
                 return null;
@@ -71,7 +74,8 @@ class ilAzureADCronPlugin extends ilCronHookPlugin
     public function getCronJobInstances() : array
     {
         return [
-            new ilAzureADCron()
+            new ilAzureADCron(),
+            new ilAzureADCronSyncUserData()
         ];
     }
 }
